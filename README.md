@@ -1,2 +1,3 @@
 # cookiecutter_flasktemplate
-A simple falsk cookiecutter ready template
+
+Cookiecutter flask template for microservices

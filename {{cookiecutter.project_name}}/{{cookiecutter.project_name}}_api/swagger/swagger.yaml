@@ -1,0 +1,200 @@
+openapi: 3.0.0
+info:
+  title: {{cookiecutter.long_project_name}} API
+  description: {{cookiecutter.long_project_name}} APIs
+  version: '0.1'
+servers:
+  - url: http://yourserver.com/api/v1
+    description: Develop server for testing
+  - url: https://yourserver.com/api/v1
+    description: Local server for testing
+paths:
+  /login:
+    post:
+      tags:
+        - auth
+      summary: Authenticate user.
+      description: Returns access and refresh token if successful.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+      responses: 
+        '200':
+          description: Login successful.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  refresh_token:
+                    type: string
+                  access_token_expiration:
+                    type: string
+                    format: date-time
+                  refresh_token_expiration:
+                    type: string
+                    format: date-time
+        '400':
+          description: Error. Bad credentials.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /refresh-token:
+    post:
+      tags:
+        - tokens
+      summary: Refresh user token.
+      description: Returns new access token if successful.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refresh_token:
+                  type: string
+              required:
+                - refresh_token
+      responses: 
+        '200':
+          description: Refresh successful.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  access_token_expiration:
+                    type: string
+                    format: date-time
+        '400':
+          description: Error. Bad request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: error detail
+        '403':
+          description: Error. Tempering with credentials or token expired.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: error detail
+        '404':
+          description: Error. Token does not exist. User is not active. User doesn't exist anymore.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: error detail
+
+  /revoke-access-token:
+    post:
+      tags:
+        - tokens
+      summary: Revoke user token.
+      description: Revokes access token if successful.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                access_token:
+                  type: string
+              required:
+                - access_token
+      responses: 
+        '200':
+          description: Refresh successful.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Error. Token does not exist. User is not active. User doesn't exist anymore.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: error detail
+  /revoke-refresh-token:
+    post:
+      tags:
+        - tokens
+      summary: Revoke user refresh token.
+      description: Revokes refresh token if successful.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refresh_token:
+                  type: string
+              required:
+                - refresh_token
+      responses: 
+        '200':
+          description: Refresh successful.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Error. Token does not exist. User is not active. User doesn't exist anymore.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: error detail
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: Hash

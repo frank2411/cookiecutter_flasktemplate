@@ -1,0 +1,13 @@
+stages:
+  - linting
+
+
+before_script:
+  - virtualenv -p python3.6 livevenv
+  - source livevenv/bin/activate
+
+linting:
+  stage: linting
+  script:
+    - pip install flake8
+    - flake8 {{cookiecutter.project_name}}_api

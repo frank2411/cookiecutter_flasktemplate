@@ -1,0 +1,2 @@
+[run]
+omit = wsgi.py, .tox/*, tests/*, setup.py, *__init__.py, {{cookiecutter.project_name}}_api/notify.py, {{cookiecutter.project_name}}_api/app.py, {{cookiecutter.project_name}}_api/config.py, {{cookiecutter.project_name}}_api/models/db.py
