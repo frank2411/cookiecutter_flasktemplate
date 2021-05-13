@@ -25,12 +25,12 @@ class ProductionConfig(BaseConfig):
     DEBUG = False
     TESTING = False
 
-    {{cookiecutter.project_name_uppercase}}_DB_ENGINE = os.getenv("IUPPITER_DB_ENGINE")
-    {{cookiecutter.project_name_uppercase}}_DB_USER = os.getenv("IUPPITER_DB_USER")
-    {{cookiecutter.project_name_uppercase}}_DB_PASSWORD = os.getenv("IUPPITER_DB_PASSWORD")
-    {{cookiecutter.project_name_uppercase}}_DB_HOST = os.getenv("IUPPITER_DB_HOST")
-    {{cookiecutter.project_name_uppercase}}_DB_PORT = os.getenv("IUPPITER_DB_PORT")
-    {{cookiecutter.project_name_uppercase}}_DB_NAME = os.getenv("IUPPITER_DB_NAME")
+    {{cookiecutter.project_name_uppercase}}_DB_ENGINE = os.getenv("{{cookiecutter.project_name_uppercase}}_DB_ENGINE")
+    {{cookiecutter.project_name_uppercase}}_DB_USER = os.getenv("{{cookiecutter.project_name_uppercase}}_DB_USER")
+    {{cookiecutter.project_name_uppercase}}_DB_PASSWORD = os.getenv("{{cookiecutter.project_name_uppercase}}_DB_PASSWORD")
+    {{cookiecutter.project_name_uppercase}}_DB_HOST = os.getenv("{{cookiecutter.project_name_uppercase}}_DB_HOST")
+    {{cookiecutter.project_name_uppercase}}_DB_PORT = os.getenv("{{cookiecutter.project_name_uppercase}}_DB_PORT")
+    {{cookiecutter.project_name_uppercase}}_DB_NAME = os.getenv("{{cookiecutter.project_name_uppercase}}_DB_NAME")
 
     SQLALCHEMY_DATABASE_URI = (
         {% raw %}f'{{% endraw %}{{cookiecutter.project_name_uppercase}}_DB_ENGINE}://{% raw %}{{% endraw %}{{cookiecutter.project_name_uppercase}}_DB_USER}:'
